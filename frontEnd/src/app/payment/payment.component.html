@@ -1,0 +1,239 @@
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Includ
++++
+e the above in your HEAD tag ---------->
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+<br>
+<br>
+<div class="container">
+<fieldset>
+<div class="container border-div">
+    <div class="row">
+        <div class="col-sm-8">
+            <form>
+                <h3>Review you Order</h3>
+                <b>Order Id:</b> {{model.orderId}}
+                <br>
+                <b>Order Amount:</b> {{model.orderAmount}}
+                <br>
+                <b>Order Status:</b> {{model.orderStatus}}
+                <br>
+                <b>Address:</b>  
+                <div style="margin-left: 20px;">
+                    {{userAddress.address_line1}} 
+                    <br>{{userAddress.address_line2}}
+                    <br>{{userAddress.landmark}}
+                    <br>{{userAddress.district}}, {{userAddress.state}}, {{userAddress.pinCode}}
+                </div>
+                <br><br>
+                <h3>Apply Coupon</h3>
+                <b>Coupon Code:</b> <input type="text" name="coupon" id="coupon" style="border-radius: 5px;" [(ngModel)]="couponCode" #codecontrol="ngModel"/>
+                <button (click)="apply()" class="btn btn-border">Apply</button>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <h3>Order Summary:</h3> <br>
+            <h5><b>Total Amount:</b> {{model.orderAmount}}</h5>
+            <div *ngIf="ch">
+                Coupon Applied: {{discount}}
+                <h5 style="color: rgba(43, 226, 43, 0.781)">Order Total: {{order.orderAmount}}</h5>
+            </div>
+        </div>
+    </div>
+    <br>
+</div>
+</fieldset>
+</div>
+
+
+<div class="container" style="margin-top: 20px; margin-left: 450px;">
+
+<div class="row">
+	<aside class="col-sm-6">
+
+<article class="card">
+    <div class="card-body p-5">
+
+        <nav class="navbar navbar-light bg-light">
+            <form class="form-inline">
+            <button class="btn btn-primary" type="button" (click)="setCashOnDelivery()">Cash on Delivery</button>
+            <button style="margin-left: 5px;" class="btn btn-primary" type="button" (click)="setDebit()">Debit</button>
+            <button style="margin-left: 5px;" class="btn btn-primary" type="button"(click)="setCredit()">Credit</button>
+            <button style="margin-left: 5px;"class="btn btn-primary" type="button" (click)="setNetBanking()">NetBanking</button>
+            </form>
+        </nav>
+
+	<form role="form" [formGroup]="creditForm"  *ngIf=credit>
+    
+    <div class="form-group">
+        <h3>Credit Card</h3>
+		<label for="username">Full name (on the card)</label>
+		<input type="text" formControlName="name" placeholder="Enter the Card Holder Name" 
+        class="form-control"  [class.is-invalid]="creditForm.get('name').invalid && creditForm.get('name').touched">
+        <small [class.d-none]="creditForm.get('name').valid || creditForm.get('name').untouched" class="text-danger">Required Filed*</small>
+    </div> <!-- form-group.// -->
+
+	<div class="form-group">
+		<label for="cardNumber">Card number</label>
+		<div class="input-group">   
+            <input type="number" formControlName="cardNumber" placeholder="Enter the 16 Digit Card Number"
+            class="form-control"  [class.is-invalid]="creditForm.get('cardNumber').invalid && creditForm.get('cardNumber').touched">
+            
+            <div class="input-group-append">
+				<span class="input-group-text text-muted">
+					<i class="fab fa-cc-visa"></i>   <i class="fab fa-cc-amex"></i>   
+					<i class="fab fa-cc-mastercard"></i> 
+				</span>
+            </div>
+        </div>
+        <small [class.d-none]="creditForm.get('cardNumber').valid || creditForm.get('cardNumber').untouched" class="text-danger">Card Number must be 16 Digit Number</small>
+    </div> <!-- form-group.// -->
+    
+
+	<div class="row">
+	    <div class="col-sm-8">
+	        <div class="form-group">
+	            <label><span class="hidden-xs">Expiration</span> </label>
+	        	<div class="input-group">
+                    <input type="number" formControlName="month" placeholder="MM" 
+                    class="form-control"  [class.is-invalid]="creditForm.get('month').invalid && creditForm.get('month').touched">
+                    
+                    <input type="number" formControlName="year" placeholder="YY" 
+                    class="form-control"  [class.is-invalid]="creditForm.get('year').invalid && creditForm.get('year').touched">
+	        	</div>
+	        </div>
+	    </div>
+	    <div class="col-sm-4">
+	        <div class="form-group">
+	            <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
+                <input type="password" formControlName="cvv"
+                class="form-control"  [class.is-invalid]="creditForm.get('cvv').invalid && creditForm.get('cvv').touched">
+	        </div> <!-- form-group.// -->
+        </div>
+        
+
+    </div> <!-- row.// -->
+    <small [class.d-none]="creditForm.get('month').valid || creditForm.get('month').untouched" class="text-danger">Must be between(1 to 12)<br></small>
+    <small [class.d-none]="creditForm.get('year').valid || creditForm.get('year').untouched" class="text-danger">Invalide year<br></small>
+    <small [class.d-none]="creditForm.get('cvv').valid || creditForm.get('cvv').untouched" class="text-danger">CVV is Required Filed</small>
+    
+    <button class="subscribe btn btn-primary btn-block" [disabled] = "creditForm.invalid" type="button" (click) = "confirmPayment()"> Confirm  </button>
+	</form>
+
+
+    <!-- for debit card -->
+	<form role="form" [formGroup]="debitForm"  *ngIf=debit>
+    
+        <div class="form-group">
+            <h3>Debit Card</h3>
+            <label for="username">Full name (on the card)</label>
+            <input type="text" formControlName="name" placeholder="Enter the Card Holder Name" 
+            class="form-control"  [class.is-invalid]="debitForm.get('name').invalid && debitForm.get('name').touched">
+            <small [class.d-none]="debitForm.get('name').valid || debitForm.get('name').untouched" class="text-danger">Required Filed*</small>
+        </div> <!-- form-group.// -->
+    
+        <div class="form-group">
+            <label for="cardNumber">Card number</label>
+            <div class="input-group">   
+                <input type="number" formControlName="cardNumber" placeholder="Enter the 16 Digit Card Number"
+                class="form-control"  [class.is-invalid]="debitForm.get('cardNumber').invalid && debitForm.get('cardNumber').touched">
+                
+                <div class="input-group-append">
+                    <span class="input-group-text text-muted">
+                        <i class="fab fa-cc-visa"></i>   <i class="fab fa-cc-amex"></i>   
+                        <i class="fab fa-cc-mastercard"></i> 
+                    </span>
+                </div>
+            </div>
+            <small [class.d-none]="debitForm.get('cardNumber').valid || debitForm.get('cardNumber').untouched" class="text-danger">Card Number must be 16 Digit Number</small>
+        </div> <!-- form-group.// -->
+        
+    
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <label><span class="hidden-xs">Expiration</span> </label>
+                    <div class="input-group">
+                        <input type="number" formControlName="month" placeholder="MM" 
+                        class="form-control"  [class.is-invalid]="debitForm.get('month').invalid && debitForm.get('month').touched">
+                        
+                        <input type="number" formControlName="year" placeholder="YY" 
+                        class="form-control"  [class.is-invalid]="debitForm.get('year').invalid && debitForm.get('year').touched">
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="form-group">
+                    <label data-toggle="tooltip" title="" data-original-title="3 digits code on back side of the card">CVV <i class="fa fa-question-circle"></i></label>
+                    <input type="password" formControlName="cvv"
+                    class="form-control"  [class.is-invalid]="debitForm.get('cvv').invalid && debitForm.get('cvv').touched">
+                </div> <!-- form-group.// -->
+            </div>
+            
+    
+        </div> <!-- row.// -->
+        <small [class.d-none]="debitForm.get('month').valid || debitForm.get('month').untouched" class="text-danger">Must be between(1 to 12)<br></small>
+        <small [class.d-none]="debitForm.get('year').valid || debitForm.get('year').untouched" class="text-danger">Invalide year<br></small>
+        <small [class.d-none]="debitForm.get('cvv').valid || debitForm.get('cvv').untouched" class="text-danger">CVV is Required Filed</small>
+        
+        <button class="subscribe btn btn-primary btn-block" [disabled] = "debitForm.invalid" type="button" (click) = "confirmPayment()"> Confirm  </button>
+        </form>
+        <form role="form" [formGroup]="netBankingForm"  *ngIf=netBanking>
+   
+            <label style="margin-top: 20px;">Bank Name:</label> 
+            <select style="margin-left: 20px;" (change)="dropDownChangedHandler($event)">
+                <option  *ngFor="let name of banksName" [value]="name">
+                  {{name}}
+                </option>
+           </select>
+            <div class="form-group">
+                <label for="username">UserName</label>
+                <input type="text" formControlName="userName" placeholder="Enter the User Name" 
+                class="form-control"  [class.is-invalid]="netBankingForm.get('userName').invalid && netBankingForm.get('userName').touched">
+                <small [class.d-none]="netBankingForm.get('userName').valid || netBankingForm.get('userName').untouched" class="text-danger">Required Filed*</small>
+            </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" formControlName="password" placeholder="Enter the User Name" 
+                class="form-control"  [class.is-invalid]="netBankingForm.get('password').invalid && netBankingForm.get('password').touched">
+                <small [class.d-none]="netBankingForm.get('password').valid || netBankingForm.get('password').untouched" class="text-danger">Required Filed*</small>
+            </div>  
+        
+            <button class="subscribe btn btn-primary btn-block" [disabled] = "netBankingForm.invalid" type="button" (click) = "confirmPayment()"> Confirm  </button>
+        </form>
+<form *ngIf=cashOnDeliver>
+    <br>
+    <h6 style="margin-left: 30px;margin-right: 30px;">Hand over the payment to your delivery boy once you receive your order.</h6>
+    <br><br><br><br>
+    <button class="subscribe btn btn-primary btn-block" type="button" (click) = "confirmPayment()"> Confirm  </button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div> <!-- card-body.// -->
+</article> <!-- card.// -->
+</aside> <!-- col.// -->
+</div> <!-- row.// -->
+</div> 

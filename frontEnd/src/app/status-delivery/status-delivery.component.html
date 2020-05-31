@@ -1,0 +1,66 @@
+
+
+<div class="container">
+    
+    <div class="row">
+        <div class="col-md-2">
+            
+        </div>
+        <div class="col-md-8">
+            
+                <fieldset>
+                     <legend class="text-center">Current Order Status</legend> 
+                    <div>Order Number :- {{lastOrder.orderId}} </div>
+                    <br>
+                    <div class="progress-bar bg-success progress-bar-striped  dot" [ngStyle]="{'width.%': percentage}">  </div>
+                    
+                    <table style="width:100%; margin-top: 5px;">
+                        <tr >
+                            <td><i class="far fa-clock" style="font-size:30px;color:rgb(255, 4, 4)" ></i></td>
+                            <td align = center><i class="fas fa-shipping-fast" style="font-size:30px;color:rgb(255, 238, 0, 0.8);"></i></td>
+                            <td align = right ><i class="fa fa-check-circle" style="font-size:30px;color:rgb(26, 119, 14)"></i></td>
+                        </tr>
+                        <tr >
+                            <td class = textd>Order Confirmed</td>
+                            <td class = textd  align = center >Shipped</td>
+                            <td class = textd align = right>Delivered</td>
+                            
+                        </tr>
+                    </table>
+    
+                    </fieldset>
+
+                    <fieldset>
+                        <legend class="text-center">Previous Orders</legend> 
+                        <table class="table table-striped">
+                        <thead>
+                        <tr>
+                          <th>Order Id</th>
+                          <th>Amount</th>
+                          <th>Status</th>
+                          <th>-</th>
+                          
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let orderlist of Olists, let i = index">
+                              
+                                <td>{{orderlist.orderId}}</td>
+                                <td>{{orderlist.orderAmount}}</td>
+                                <td>{{orderlist.orderStatus}}</td>
+                                <td><button class="btn btn-primary" style="border-radius: 15px;" (click)="selectOrder(i)"> View Status</button></td>
+                               
+                                </tr>
+                        </tbody>
+                          </table>
+                          <!-- <button class="btn btn-danger" (click)="deleteEmployee(employee)"> Delete Employee</button> -->
+                        </fieldset>
+            
+        </div>
+        <div class="col-md-2">
+            
+        </div>
+    </div>
+    </div>
+    
+    

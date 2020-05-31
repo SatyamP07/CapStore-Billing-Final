@@ -1,0 +1,51 @@
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+    margin-left: 25%;
+}
+.login-form-1{
+    padding: 5%;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h3{
+    text-align: center;
+    color: #333;
+}
+.login-container form{
+    padding: 10%;
+}
+.btnSubmit
+{
+    width: 50%;
+    border-radius: 1rem;
+    padding: 1.5%;
+    border: none;
+    cursor: pointer;
+}
+.btnSubmit:disabled {
+    background-color: rgba(5, 84, 202, 0.541);
+}
+.login-form-1 .btnSubmit{
+    font-weight: 600;
+    color: #fff;
+    background-color: #0062cc;
+}
+
+.btn {
+    background-color: DodgerBlue;
+    border: none;
+    color: white;
+    padding: 12px 16px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+  .btndeliver{
+      width: 20%;
+      height: 15%;
+      color: black;
+      background: darkgoldenrod;
+  }
+  /* Darker background on mouse-over */
+  .btn:hover {
+    background-color: red;
+  }

@@ -1,0 +1,28 @@
+body {
+  padding-top:50px;
+}
+fieldset {
+  border: thin solid #ccc; 
+  border-radius: 40px;
+  padding: 20px;
+  padding-left: 40px;
+  background: #7bacb34d;
+}
+legend {
+ color: rgb(90, 149, 163);
+}
+
+td{
+   width: 33.33%;
+}
+.textd
+{
+  color: rgb(90, 149, 163); 
+}
+.progress-bar
+{
+  border: thin solid rgb(43, 150, 48); 
+  border-radius: 40px;
+  height:8px
+  /*background: #7bacb34d;*/
+}

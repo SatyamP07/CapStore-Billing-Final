@@ -1,0 +1,21 @@
+
+<br>
+<br>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-8">
+            <form>
+                Order Id: <input type="number" name="orderId" id="orderId" [(ngModel)]="model.orderId" #idcontrol="ngModel"/>
+                <br><br>
+                Order Amount: <input type="number" name="orderAmount" id="orderAmount" [(ngModel)]="model.orderAmount" #amountcontrol="ngModel"/>
+                <br><br>
+                Order Status: <input type="text" name="orderStatus" id="orderStatus" [(ngModel)]="model.orderStatus" #statuscontrol="ngModel"/>
+                <br><br>
+                Address Id: <input type="number" name="addressId" id="addressId" [(ngModel)]="model.addressId" #addIdcontrol="ngModel"/>
+                <br><br>
+                <button (click)="makePayment()" routerLink="/billing"  style="background:#f0c14b;">Make Payment</button>
+            </form>
+        </div>
+    </div>
+</div>

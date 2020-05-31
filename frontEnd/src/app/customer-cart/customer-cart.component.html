@@ -1,0 +1,28 @@
+
+<div class="container cartData">
+  <div style="margin-left: 1000px;">
+  <button class="btn btn-warning" (click) = "placeOrder()">Check Out</button>
+  </div> 
+  <table class="table table-striped">
+      <tr>
+        <th>Product Name</th>
+        <th>Quantity</th>
+        <th>Delete Button</th>
+      </tr>
+      <tr *ngFor="let c of customer.customerCarts; let i = index" [attr.data-index]="i">
+          <td>
+            <div *ngFor="let product of products">
+              <div *ngIf="c.productId==product.productId">
+                {{product.productName}}
+              </div>
+            </div>
+          </td>
+          <td>
+            {{c.quantity}}
+          </td>
+          <td>
+            <button class="btn btn-danger">Delete</button>
+          </td>
+      </tr>
+  </table>
+</div>

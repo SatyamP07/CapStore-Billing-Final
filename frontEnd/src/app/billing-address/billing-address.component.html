@@ -1,0 +1,45 @@
+<form [formGroup]="myForm" #f="ngForm">
+    <div class="container login-container">
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+                <div class="form-group" >
+                    <input type="text" formControlName="address_line1" [(ngModel)]='address.address_line1' placeholder="Enter your Address line 1 *"
+                    class="form-control"  [class.is-invalid]="myForm.get('address_line1').invalid && myForm.get('address_line1').touched">
+                    <small [class.d-none]="myForm.get('address_line1').valid || myForm.get('address_line1').untouched" class="text-danger">Required Filed*</small>
+                </div>
+                <div class="form-group" >
+                    <input type="text" class="form-control" formControlName="address_line2" [(ngModel)]='address.address_line2' placeholder="Enter your Address line 2"
+                    class="form-control"  [class.is-invalid]="myForm.get('address_line2').invalid && myForm.get('address_line2').touched">
+                    <small [class.d-none]="myForm.get('address_line2').valid || myForm.get('address_line2').untouched" class="text-danger">Required Filed*</small>
+                </div>
+                <div class="form-group" >
+                    <input type="text" formControlName="district" [(ngModel)]='address.district' placeholder="Enter your District Name *"
+                    class="form-control"  [class.is-invalid]="myForm.get('district').invalid && myForm.get('district').touched">
+                    <small [class.d-none]="myForm.get('district').valid || myForm.get('district').untouched" class="text-danger">Required Filed*</small>
+                </div>
+                <div class="form-group" >
+                    <input type="text" formControlName="state" [(ngModel)]='address.state' placeholder="Enter your State Name *"
+                    class="form-control"  [class.is-invalid]="myForm.get('state').invalid && myForm.get('state').touched">
+                    <small [class.d-none]="myForm.get('state').valid || myForm.get('state').untouched" class="text-danger">Required Filed*</small>
+                </div>
+                <div class="form-group" >
+                    <input type="number" formControlName="pinCode" [(ngModel)]='address.pinCode' placeholder="Enter Pin Code Number *"
+                    class="form-control"  [class.is-invalid]="myForm.get('pinCode').invalid && myForm.get('pinCode').touched">
+                    <small [class.d-none]="myForm.get('pinCode').valid || myForm.get('pinCode').untouched" class="text-danger"> Pin code should 6 digit Number Required Filed*</small>
+                </div>
+                <div class="form-group" >
+                    <input type="text" formControlName="landmark" [(ngModel)]='address.landmark' placeholder="Enter landmark *"
+                    class="form-control"  [class.is-invalid]="myForm.get('landmark').invalid && myForm.get('landmark').touched">
+                    <small [class.d-none]="myForm.get('landmark').valid || myForm.get('landmark').untouched" class="text-danger">Required Filed*</small>
+                </div>
+
+                    <div class="form-group">
+                        <button  type="submit" class="btn btnSubmit" [disabled]="f.form.invalid"  (click)="addNewAddress()">Add</button>
+                    </div>
+            </div>
+        </div>
+    </div>
+    
+    </form>
+<router-outlet></router-outlet>    
+

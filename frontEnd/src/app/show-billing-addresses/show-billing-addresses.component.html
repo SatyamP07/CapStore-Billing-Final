@@ -1,0 +1,31 @@
+
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+  <div class="displayaddress">
+    <h1 style="padding-bottom: 1%;">Select a delivery address</h1>
+    <p style="padding-bottom: 3%;">Is the address, you'd like to use, displayed below? 
+      <br>If so, select the corresponding address and click "Deliver to this address" button. 
+      <br>Or you can enter a new delivery address.
+    </p>
+<div class="form-check" *ngFor="let address of addresses;let i = index">
+  <input type="radio" class="form-check-input" value={{address.addressId}} name="currentAddress" (change)="setCureentAddress($event)">
+  <label>Address No: {{i+1}}</label><button style="margin-left: 50px;" class="btn btn-del" (click)="deleteAddress(address.addressId)"><i class="fa fa-trash"></i></button><br>
+   <address> 
+    {{address.address_line2}}<br> 
+    {{address.address_line1}},<br>
+    {{address.landmark}},<br>
+    {{address.district}}, {{address.state}},{{address.pinCode}}
+    </address>
+</div>
+<div class="alert alert-light" style="color: red;" role="alert">{{errorMessage}}</div>
+<a routerLink="/newAddress">click here to add new address</a><br>
+<button  type="submit" class="btn btnSubmit btndeliver" (click)="currentAddress()">Deliver to this address</button>
+</div>
+</body>
+
+</html>

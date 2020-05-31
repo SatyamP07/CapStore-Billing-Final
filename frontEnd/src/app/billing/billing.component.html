@@ -1,0 +1,32 @@
+
+<br>
+<br>
+<div class="border-div container">
+    <div class="row">
+        <div class="col-sm-8">
+            <form>
+                <h3>Review you Order</h3>
+                Order Id: {{model.orderId}}
+                <br>
+                Order Amount: {{model.orderAmount}}
+                <br>
+                Order Status: {{model.orderStatus}}
+                <br>
+                Address Id: {{model.addressId}}
+                <br><br>
+                <h3>Apply Coupon</h3>
+                Coupon Code: <input type="text" name="coupon" id="coupon" [(ngModel)]="couponCode" #codecontrol="ngModel"/>
+                <button (click)="apply()" style="background: #f0c14b;">Apply</button>
+            </form>
+        </div>
+
+        <div class="col-sm-4">
+            <h3>Order Summary:</h3> <br>
+            <h5>Total Amount: {{model.orderAmount}}</h5>
+            <div *ngIf="ch">
+                Coupon Applied: {{discount}}
+                <h5 style="color: rgba(85, 230, 41, 0.897)">Order Total: {{order.orderAmount}}</h5>
+            </div>
+        </div>
+    </div>
+</div>
